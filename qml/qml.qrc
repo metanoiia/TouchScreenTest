@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Main.qml</file>
+        <file>TouchCell.qml</file>
+        <file>CellGrid.qml</file>
+    </qresource>
+</RCC>
