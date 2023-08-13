@@ -3,7 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
-ApplicationWindow{
+Window{
     id: root
     visible: true
     width: Screen.width
@@ -17,10 +17,17 @@ ApplicationWindow{
     enum Modes{
         Normal,
         Enlarged,
-        Giant
+        Giant,
+        Drawing
     }
 
     property int currentMode: Main.Modes.Normal
+
+    StackView {
+        id: stack
+        initialItem: normalMode
+        anchors.fill: parent
+    }
 
     Item {
         id: mainItem
@@ -33,6 +40,8 @@ ApplicationWindow{
         Keys.onDigit1Pressed: setNormalAsActiveMode()
         Keys.onDigit2Pressed: setEnlargeAsActiveMode()
         Keys.onDigit3Pressed: setGiantAsActiveMode()
+        Keys.onDigit4Pressed: setDrawingAsActiveMode()
+
 
         CellGrid{
             id: normalMode
@@ -56,29 +65,33 @@ ApplicationWindow{
             mode_p: Main.Modes.Giant
         }
 
+        Drawing{
+            id: drawingMode
+        }
+
 
         function setGiantAsActiveMode(){
-            normalMode.visible = false
-            enlargedMode.visible = false
-            giantMode.visible = true
+            stack.replace(giantMode)
 
             root.currentMode = Main.Modes.Giant
         }
 
         function setEnlargeAsActiveMode(){
-            normalMode.visible = false
-            enlargedMode.visible = true
-            giantMode.visible = false
+            stack.replace(enlargedMode)
 
             root.currentMode = Main.Modes.Enlarged
         }
 
         function setNormalAsActiveMode(){
-            normalMode.visible = true
-            enlargedMode.visible = false
-            giantMode.visible = false
+            stack.replace(normalMode)
 
             root.currentMode = Main.Modes.Normal
+        }
+
+        function setDrawingAsActiveMode(){
+            stack.replace(drawingMode)
+
+            root.currentMode = Main.Modes.Drawing
         }
     }
 
@@ -93,6 +106,9 @@ ApplicationWindow{
         }
         return null
     }
+
+
 }
+
 
 

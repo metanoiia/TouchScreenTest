@@ -17,21 +17,10 @@ Rectangle {
         propagateComposedEvents: true
         hoverEnabled: true
 
-        onReleased:{
-            parent.color = "forestgreen"
-        }
-
-        onPressed:{
-            parent.color = "crimson"
-        }
-
-        onPositionChanged: {
-            globalPositionChanged(parent, mouse)
-        }
-
-        Component.onCompleted: {
-            globalPositionChanged.connect(handlePositionChange)
-        }
+        onReleased: parent.color = "forestgreen"
+        onPressed: parent.color = "crimson"
+        onPositionChanged: globalPositionChanged(parent, mouse)
+        Component.onCompleted: globalPositionChanged.connect(handlePositionChange)
 
         function handlePositionChange(item, position) {
             var localPos = toLocalePosition(parent, item, position)

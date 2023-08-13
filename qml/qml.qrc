@@ -3,5 +3,6 @@
         <file>Main.qml</file>
         <file>TouchCell.qml</file>
         <file>CellGrid.qml</file>
+        <file>Drawing.qml</file>
     </qresource>
 </RCC>
